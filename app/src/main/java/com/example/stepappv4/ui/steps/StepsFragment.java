@@ -48,11 +48,26 @@ public class StepsFragment extends Fragment {
         View root = binding.getRoot();
 
         progressBar = (CircularProgressIndicator)  root.findViewById(R.id.progressBar);
-        progressBar.setMax(100);
-        progressBar.setProgress(stepsCounter);
+//        progressBar.setMax(100);
+//        progressBar.setProgress(stepsCounter);
 
         stepsTextView = (TextView) root.findViewById(R.id.stepsCount_textview);
         stepsTextView.setText(""+stepsCounter);
+
+//        Get today's date in "yyyy-MM-dd" format
+        long timeInMillis = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+2"));  // Adjust time zone as needed
+        String currentDate = sdf.format(timeInMillis);
+
+        // Load steps from the database for today
+        StepAppOpenHelper databaseHelper = new StepAppOpenHelper(getContext());
+        int stepsCounter = databaseHelper.loadSingleRecord(getContext(), currentDate);
+
+        // Update the progress bar and text view
+        progressBar.setMax(100);  // You can adjust the max value as per your app's logic
+        progressBar.setProgress(stepsCounter);
+        stepsTextView.setText(String.valueOf(stepsCounter));
 
         // TODO 3: Get an instance of sensor manager
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
