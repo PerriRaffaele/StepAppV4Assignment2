@@ -91,7 +91,11 @@ public class  StepCounterListener implements SensorEventListener {
                 // TODO (Assignment 02): Use the STEP_DETECTOR  to count the number of steps
                 // TODO (Assignment 02): The STEP_DETECTOR is triggered every time a step is detected
                 // TODO (Assignment 02): The sensorEvent.values of STEP_DETECTOR has only one value for the detected step count
-
+                accStepCounter += sensorEvent.values[0];
+                stepCountsView.setText(String.valueOf(accStepCounter));
+                saveStepInDatabase();
+                progressBar.setProgress(accStepCounter);
+                break;
         }
     }
     @Override
@@ -138,7 +142,8 @@ public class  StepCounterListener implements SensorEventListener {
 
     private void countSteps(float step)
     {
-
+        accStepCounter += step;
+        stepCountsView.setText(String.valueOf(accStepCounter));
     }
     private void saveStepInDatabase()
     {
