@@ -57,7 +57,7 @@ public class StepsFragment extends Fragment {
 //        Get today's date in "yyyy-MM-dd" format
         long timeInMillis = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT+2"));  // Adjust time zone as needed
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+2"));
         String currentDate = sdf.format(timeInMillis);
 
         // Load steps from the database for today
@@ -65,7 +65,7 @@ public class StepsFragment extends Fragment {
         int stepsCounter = databaseHelper.loadSingleRecord(getContext(), currentDate);
 
         // Update the progress bar and text view
-        progressBar.setMax(100);  // You can adjust the max value as per your app's logic
+        progressBar.setMax(100);
         progressBar.setProgress(stepsCounter);
         stepsTextView.setText(String.valueOf(stepsCounter));
 
